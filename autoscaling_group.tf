@@ -1,5 +1,3 @@
-# --- ECS Service Auto Scaling ---
-
 resource "aws_appautoscaling_target" "ecs_target" {
   service_namespace  = "ecs"
   scalable_dimension = "ecs:service:DesiredCount"

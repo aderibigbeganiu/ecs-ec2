@@ -1,7 +1,5 @@
-# --- ECR ---
-
 resource "aws_ecr_repository" "app" {
-  name                 = "demo-app"
+  name                 = "${var.namespace}-${var.environment}-app"
   image_tag_mutability = "MUTABLE"
   force_delete         = true
 
@@ -10,6 +8,6 @@ resource "aws_ecr_repository" "app" {
   }
 }
 
-output "demo_app_repo_url" {
+output "app_repo_url" {
   value = aws_ecr_repository.app.repository_url
 }

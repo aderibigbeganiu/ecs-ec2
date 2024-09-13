@@ -1,19 +1,5 @@
-# --- ECS Node Role ---
-
-data "aws_iam_policy_document" "ecs_node_doc" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
-  }
-}
-
 resource "aws_iam_role" "ecs_node_role" {
-  name_prefix        = "demo-ecs-node-role"
+  name_prefix        = "${var.namespace}-${var.environment}-ecs-node-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_node_doc.json
 }
 
@@ -23,7 +9,7 @@ resource "aws_iam_role_policy_attachment" "ecs_node_role_policy" {
 }
 
 resource "aws_iam_instance_profile" "ecs_node" {
-  name_prefix = "demo-ecs-node-profile"
+  name_prefix = "${var.namespace}-${var.environment}-ecs-node-profile"
   path        = "/ecs/instance/"
   role        = aws_iam_role.ecs_node_role.name
 }
@@ -43,12 +29,12 @@ data "aws_iam_policy_document" "ecs_task_doc" {
 }
 
 resource "aws_iam_role" "ecs_task_role" {
-  name_prefix        = "demo-ecs-task-role"
+  name_prefix        = "${var.namespace}-${var.environment}-ecs-task-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_doc.json
 }
 
 resource "aws_iam_role" "ecs_exec_role" {
-  name_prefix        = "demo-ecs-exec-role"
+  name_prefix        = "${var.namespace}-${var.environment}-ecs-exec-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_doc.json
 }
 

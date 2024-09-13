@@ -7,12 +7,13 @@ locals {
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
-  tags   = { Name = "demo-rt-public" }
+  tags   = { Name = "${var.namespace}-${var.environment}-rt-public" }
 
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.main.id
   }
+  
 }
 
 resource "aws_route_table_association" "public" {
@@ -27,5 +28,5 @@ resource "aws_subnet" "public" {
   availability_zone       = local.azs_names[count.index]
   cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, 10 + count.index)
   map_public_ip_on_launch = true
-  tags                    = { Name = "demo-public-${local.azs_names[count.index]}" }
+  tags                    = { Name = "${var.namespace}-${var.environment}-public-${local.azs_names[count.index]}" }
 }

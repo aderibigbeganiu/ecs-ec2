@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "main" {
-  name = "demo-cluster"
+  name = "${var.namespace}-${var.environment}-cluster"
 }
 
 output "ecs_cluster_name" {
