@@ -17,7 +17,7 @@ terraform apply -auto-approve
 ## Read ECR repository URL to push Docker image with app to registry
 REPOSITORY_URL=$(terraform output -raw app_repo_url)
 REPOSITORY_BASE_URL=$(sed -r 's#([^/])/[^/].*#\1#' <<< ${REPOSITORY_URL})
-aws ecr get-login-password | \
+aws ecr get-login-password --region eu-west-3 | \
     docker login --username AWS --password-stdin ${REPOSITORY_BASE_URL}
 
 ## Build Docker image and tag new versions for every deployment

@@ -16,6 +16,19 @@ resource "aws_ecs_task_definition" "app" {
 
     environment = [
       { name = "EXAMPLE", value = "example" },
+      { name = "DATABASE_URI", value = "mongodb+srv://abayomiganiy:04wO844HAXtQVYg3@cluster0.7i1kopr.mongodb.net/kufuli" },
+      { name = "ADMIN_EMAIL", value = "admin@kufuli.app" },
+      { name = "ADMIN_PASSWORD", value = "Adeganew1!" },
+      { name = "ADMIN_COOKIE_SECRET", value = "2X2n58a4QvrllacMZVB8b6ajLOrH5PIVvbweniohuytevurrihoui" },
+      { name = "CORS_WHITELIST", value = "https://dashboard.kufuli.app" },
+      { name = "PORT", value = "8000" },
+      { name = "JWT_SECRET", value = "2X2n58a4QvrllacMZVB8b6ajLOrH5PIVvbweniohuytevurrihoui" },
+      { name = "NODE_ENV", value = "production" },
+      { name = "CLOUDINARY_CLOUD_NAME", value = "dv2tl4udt" },
+      { name = "CLOUDINARY_API_KEY", value = "646882184677319" },
+      { name = "CLOUDINARY_API_SECRET", value = "AlZMQbs_tAd7kiitC_dZNYe75xM" },
+      { name = "CLOUDINARY_FOLDER", value = "kufuli" },
+      { name = "BASE_URL", value = "https://api.kufuli.app" },
     ]
 
     # secrets = module.secrets.ecs_secrets,

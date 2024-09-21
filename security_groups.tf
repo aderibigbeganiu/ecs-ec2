@@ -4,27 +4,13 @@ resource "aws_security_group" "http" {
   vpc_id      = aws_vpc.main.id
 
   dynamic "ingress" {
-    for_each = [80, 443]
+    for_each = [80, 443, 27017, 22]
     content {
       protocol    = "tcp"
       from_port   = ingress.value
       to_port     = ingress.value
       cidr_blocks = ["0.0.0.0/0"]
     }
-  }
-
-  egress {
-    from_port   = 27015
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -59,21 +45,6 @@ resource "aws_security_group" "ecs_task" {
 resource "aws_security_group" "ecs_node_sg" {
   name_prefix = "${var.namespace}-${var.environment}-ecs-node-sg-"
   vpc_id      = aws_vpc.main.id
-
-  egress {
-    from_port   = 27015
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "SSH access from your IP"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Replace with your IP address
-  }
 
   egress {
     from_port   = 0
